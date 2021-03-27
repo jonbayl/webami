@@ -3,7 +3,8 @@ A whoami for the internet. Easily retrieve your public IP address from the comma
 
 # Installation
 webami is very easy to install:
-``` cd webami
+``` 
+cd webami
 make
 ```
 
