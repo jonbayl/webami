@@ -1,5 +1,5 @@
 # webami
-A whoami for the internet. Easily retrieve your public IP address from the command-line.
+A whoami for the internet. Easily retrieve your public IP address from the command-line. webami utilises [Ipify](https://www.ipify.org/) to retrieve your public IP address and return it within the command-line.
 
 # Installation
 webami is very easy to install:
