@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-var version string = "v1.1"
+const version string = "v1.2"
 
 func help() {
 	fmt.Println("webami - A whoami for the internet.")
