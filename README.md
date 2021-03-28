@@ -14,6 +14,11 @@ Move the resultant "webami" executable to your `PATH` for easy usage.
 There really isn't much to using webami! Once it's compiled, simply use the executable:
 `./webami`
 
+You can specify a different IP retrieval service if you wish. You can do this using the use command: `./webami use https://api.ipify.org`. You are free to use whatever IP retrieval service you like, for example your own self-hosted version of Ipify or an alternative service. However, webami expects the output of the service used to follow some simple rules:
+- The service must be accessible using either the HTTP or HTTPS protocol
+- The service must present the Content-Type: plain/text
+- The IP address must be the only thing returned in the response body.
+
 If you're interested, you can get your current version of webami using: `./webami version`. 
 
 More features will be added soon and will be documented here but to get the full webami help, use: `./webami help`.
