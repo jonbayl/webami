@@ -31,6 +31,7 @@ func getPublicIp() {
 	}
 	fmt.Printf("%s\n", ip)
 
+	defer resp.Body.Close()
 	os.Exit(0)
 }
 
