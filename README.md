@@ -11,7 +11,7 @@ make
 Move the resultant "webami" executable to your `PATH` for easy usage.
 
 # Usage
-There really isn't much to using webami! Once it's compiled and installed, simply use the executable:
+There really isn't much to using webami! Once it's compiled, simply use the executable:
 `./webami`
 
 # License
