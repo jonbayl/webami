@@ -29,5 +29,4 @@ The current feature set is minimal and whilst it's enough to get the job done (g
 webami uses [Ipify](https://www.ipify.org/) to retrieve your public IP address. It is essentially a command-line wrap around the Ipify API. Ipify is a seperate, unrelated project (maintained by Randall Degges) which has it's source code in a [Github Repository](https://github.com/rdegges/ipify-api). 
 
 # License
-webami is licensed under a [MIT](https://choosealicense.com/licenses/mit/) license.
-![license](https://img.shields.io/github/license/jonbayl/webami)
+![license](https://img.shields.io/github/license/jonbayl/webami) webami is licensed under a [MIT](https://choosealicense.com/licenses/mit/) license.
