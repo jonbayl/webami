@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"regexp"
 )
@@ -31,13 +32,46 @@ func validateIp(ip []byte) error {
 	return nil
 }
 
-func getPublicIp() {
+func prepareRequest(srv []string) (*http.Client, *http.Request) {
+	var srvString string = srv[0]
+	_, err := url.ParseRequestURI(srvString)
+	if err != nil {
+		log.Fatal("an invalid url was provided to be used as the IP retrieval service")
+	}
+
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://localhost:8080/ip", nil)
+	req, err := http.NewRequest("GET", srvString, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	req.Header.Add("User-Agent", "webami/"+version)
+
+	return client, req
+}
+
+func getPublicIp() {
+	client, req := prepareRequest([]string{"https://api.ipify.org"})
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	ip, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = validateIp(ip)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%s\n", ip)
+
+	defer resp.Body.Close()
+	os.Exit(0)
+}
+
+func getPublicIpAltService(srv []string) {
+	client, req := prepareRequest(srv)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -64,6 +98,8 @@ func main() {
 	switch os.Args[1] {
 	case "version":
 		fmt.Println("webami version: " + version)
+	case "use":
+		getPublicIpAltService(os.Args[2:])
 	default:
 		help()
 	}
