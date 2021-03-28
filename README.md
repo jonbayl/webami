@@ -23,6 +23,7 @@ The current feature set is minimal and whilst it's enough to get the job done (g
 
 - The ability to specify additional sources to retrieve your Public IP address. This could include a self-hosted version of Ipify. 
 - A set of expoted libraries to allow re-use with other Go programs.
+- Addition of simple build and tests.
 
 # Credit where credit is due
 webami uses [Ipify](https://www.ipify.org/) to retrieve your public IP address. It is essentially a command-line wrap around the Ipify API. Ipify is a seperate, unrelated project (maintained by Randall Degges) which has it's source code in a [Github Repository](https://github.com/rdegges/ipify-api). 
