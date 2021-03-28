@@ -14,5 +14,16 @@ Move the resultant "webami" executable to your `PATH` for easy usage.
 There really isn't much to using webami! Once it's compiled, simply use the executable:
 `./webami`
 
+If you're interested, you can get your current version of webami using: `./webami version`. 
+
+More features will be added soon and will be documented here but to get the full webami help, use: `./webami help`.
+
+# The TODO List...
+The current feature set is minimal and whilst it's enough to get the job done (get your public IP), it can definitely be improved. Future features on the TO DO list include:
+
+- The ability to specify additional sources to retrieve your Public IP address. 
+- A set of expoted libraries to allow re-use with other Go programs.
+- A simple webami server, which can be deployed internally. This may be useful, for example, for allowing a client to retrieve their internal IP address where NATing is in place. 
+
 # License
 webami is licensed under a [MIT](https://choosealicense.com/licenses/mit/) license.
