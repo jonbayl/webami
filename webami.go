@@ -21,7 +21,14 @@ func help() {
 }
 
 func getPublicIp() {
-	resp, err := http.Get("https://api.ipify.org")
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", "https://api.ipify.org", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Add("User-Agent", "webami/"+version)
+
+	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
