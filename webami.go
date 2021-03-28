@@ -1,11 +1,13 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 )
 
 const version string = "v1.2"
@@ -20,9 +22,18 @@ func help() {
 	os.Exit(0)
 }
 
+func validateIp(ip []byte) error {
+	reg, _ := regexp.Match("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", ip)
+	if reg != true {
+		return errors.New("an invalid response was returned by the queried service, it was not an IP address")
+	}
+
+	return nil
+}
+
 func getPublicIp() {
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://api.ipify.org", nil)
+	req, err := http.NewRequest("GET", "http://localhost:8080/ip", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,6 +44,10 @@ func getPublicIp() {
 		log.Fatal(err)
 	}
 	ip, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = validateIp(ip)
 	if err != nil {
 		log.Fatal(err)
 	}
