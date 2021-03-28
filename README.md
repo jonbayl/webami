@@ -30,3 +30,4 @@ webami uses [Ipify](https://www.ipify.org/) to retrieve your public IP address. 
 
 # License
 webami is licensed under a [MIT](https://choosealicense.com/licenses/mit/) license.
+![license](https://img.shields.io/github/license/jonbayl/webami)
