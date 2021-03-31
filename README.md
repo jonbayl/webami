@@ -10,7 +10,7 @@ make
 
 Move the resultant "webami" executable to your `PATH` for easy usage.
 
-Alternatively, you can grab the latest release from the current [releases](https://github.com/jonbayl/webami/releases)
+Alternatively, you can grab the latest release from the current [releases](https://github.com/jonbayl/webami/releases). Release executables are made available for both Linux and Windows.
 
 # Usage
 There really isn't much to using webami! Once it's compiled, simply use the executable:

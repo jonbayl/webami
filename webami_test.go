@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"testing"
@@ -12,6 +13,7 @@ func TestHelp(t *testing.T) {
 		return
 	}
 	cmd := exec.Command(os.Args[0], "-test.run=TestHelp")
+	fmt.Printf("%s", os.Args[0])
 	cmd.Env = append(os.Environ(), "TEST_HELP=1")
 	err := cmd.Run()
 
