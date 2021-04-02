@@ -3,7 +3,7 @@ A whoami for the internet. Easily retrieve your public IP address from the comma
 
 webami is designed to be a simple way to avoid context-switching (we :heart: terminal!) and provide a simple way to get your public IP should you need to pipe it into things.
 
-![build](https://img.shields.io/github/workflow/status/jonbayl/webami/Webami%20Build) 
+[![Webami Build](https://github.com/jonbayl/webami/actions/workflows/webami.yml/badge.svg)](https://github.com/jonbayl/webami/actions/workflows/webami.yml)
 
 # Installation
 webami is very easy to install:

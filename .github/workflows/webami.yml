@@ -3,9 +3,14 @@ name: Webami Build
 on:
   push:
     branches: [ main ]
+    paths-ignore: 
+      - 'README.md'
+      - 'SECURITY.md'
   pull_request:
     branches: [ main ]
-
+    paths-ignore: 
+      - 'README.md'
+      - 'SECURITY.md'
 jobs:
 
   build:
