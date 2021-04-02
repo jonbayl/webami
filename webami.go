@@ -11,7 +11,7 @@ import (
 	"regexp"
 )
 
-const version string = "v1.2"
+const version string = "v1.3"
 
 func help() {
 	fmt.Println("webami - A whoami for the internet.")
@@ -100,6 +100,9 @@ func main() {
 	case "version":
 		fmt.Println("webami version: " + version)
 	case "use":
+		if len(os.Args) < 3 {
+			log.Fatal("you did not provide use with enough arguments")
+		}
 		getPublicIpAltService(os.Args[2:])
 	default:
 		help()
