@@ -2,9 +2,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: 
-      - main
-      - codeql-testing
+    branches: [ main ]
     paths-ignore: 
       - 'README.md'
       - 'SECURITY.md'
