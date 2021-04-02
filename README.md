@@ -31,8 +31,8 @@ e.g:
 ```
 
 You are free to use whatever IP retrieval service you like, for example your own self-hosted version of Ipify or an alternative service. However, webami expects the output of the service used to follow some simple rules:
-- The service must be accessible using either the HTTP or HTTPS protocol
-- The service must present the Content-Type: plain/text
+- The service must be accessible using either the HTTP or HTTPS protocol.
+- The service must present the Content-Type: plain/text.
 - The IP address must be the only thing returned in the response body.
 
 To find out the current version of your webami executable, you can use:
