@@ -47,7 +47,7 @@ More features will be added soon and will be documented. However, for a quick as
 The current feature set is minimal and whilst it's enough to get the job done (get your public IP), it can definitely be improved. Future features on the TO DO list include:
 
 - ~The ability to specify additional sources to retrieve your Public IP address. This could include a self-hosted version of Ipify.~
-- Addition of simple build and tests.
+- ~Addition of simple build and tests.~
 
 # Credit where credit is due
 webami uses [Ipify](https://www.ipify.org/) to retrieve your public IP address. It is essentially a command-line wrap around the Ipify API. Ipify is a seperate, unrelated project (maintained by Randall Degges) which has it's source code in a [Github Repository](https://github.com/rdegges/ipify-api). 
