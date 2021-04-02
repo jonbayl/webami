@@ -20,8 +20,6 @@ func help() {
 	fmt.Println("\nOther arguments:")
 	fmt.Println("version: prints the current version of webami.")
 	fmt.Println("use: specify the IP retrieveal service to use. Takes one argument which must be a valid URL, all other arguments are ignored. Example: webami use https://api.ipify.org")
-
-	os.Exit(0)
 }
 
 func validateIp(ip []byte) error {

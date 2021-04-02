@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"os/exec"
+	"reflect"
 	"testing"
 )
 
@@ -20,6 +22,7 @@ func TestHelp(t *testing.T) {
 	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
 		t.Errorf("Help returned %v when exit status 0 was expected.", err)
 	}
+	help()
 }
 func TestValidateIp(t *testing.T) {
 	validIp := []byte("10.10.10.10")
@@ -27,41 +30,39 @@ func TestValidateIp(t *testing.T) {
 
 	err := validateIp(validIp)
 	if err != nil {
-		t.Errorf("Valid input: %s resulted in error: %s.", validIp, err)
+		t.Fatalf("Valid input: %s resulted in error: %s.", validIp, err)
 	}
 
 	err = validateIp(invalidIp)
 	if err == nil {
-		t.Errorf("Invalid input: %s did not result in error.", invalidIp)
+		t.Fatalf("Invalid input: %s did not result in error.", invalidIp)
 	}
+}
+
+func TestPrepareRequest(t *testing.T) {
+	srv := []string{"https://api.ipify.org"}
+	client, req := prepareRequest(srv)
+
+	validClient := &http.Client{}
+	if reflect.TypeOf(client) != reflect.TypeOf(validClient) {
+		t.Errorf("Expected client of type %s, got: %s", reflect.TypeOf(validClient), reflect.TypeOf(client))
+	}
+
+	if req.Method != "GET" {
+		t.Errorf("Expected request to have method GET, got: %s", req.Method)
+	}
+
+	expect := "webami"
+	if req.Header.Get("User-Agent") != "webami/"+version {
+		t.Errorf("Expected user agent: %s, got: %s", expect, req.Header.Get("User-Agent"))
+	}
+
 }
 
 func TestGetPublicIp(t *testing.T) {
-	//This test may need some evaluation. Is just testing for exit code enough?
-	if os.Getenv("TEST_PUBLIC_IP") == "1" {
-		getPublicIp()
-		return
-	}
-	cmd := exec.Command(os.Args[0], "-test.run=TestGetPublicIp")
-	cmd.Env = append(os.Environ(), "TEST_PUBLIC_IP=1")
-	err := cmd.Run()
-
-	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
-		t.Errorf("Help returned %v when exit status 0 was expected.", err)
-	}
-}
-
-func TestGetPublicIpAltService(t *testing.T) {
-	//This test may need some evaluation. Is just testing for exit code enough?
-	if os.Getenv("TEST_PUBLIC_IP_ALT") == "1" {
-		getPublicIp()
-		return
-	}
-	cmd := exec.Command(os.Args[0], "-test.run=TestGetPublicIp")
-	cmd.Env = append(os.Environ(), "TEST_PUBLIC_IP_ALT=1")
-	err := cmd.Run()
-
-	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
-		t.Errorf("Help returned %v when exit status 0 was expected.", err)
+	ip := getPublicIp([]string{"https://api.ipify.org"})
+	err := validateIp(ip)
+	if err != nil {
+		t.Errorf("getPublicIp returned %s, which is not valid input.", ip)
 	}
 }
