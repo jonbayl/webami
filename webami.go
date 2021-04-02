@@ -20,8 +20,6 @@ func help() {
 	fmt.Println("\nOther arguments:")
 	fmt.Println("version: prints the current version of webami.")
 	fmt.Println("use: specify the IP retrieveal service to use. Takes one argument which must be a valid URL, all other arguments are ignored. Example: webami use https://api.ipify.org")
-
-	os.Exit(0)
 }
 
 func validateIp(ip []byte) error {
@@ -50,28 +48,7 @@ func prepareRequest(srv []string) (*http.Client, *http.Request) {
 	return client, req
 }
 
-func getPublicIp() {
-	client, req := prepareRequest([]string{"https://api.ipify.org"})
-
-	resp, err := client.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-	ip, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = validateIp(ip)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%s\n", ip)
-
-	defer resp.Body.Close()
-	os.Exit(0)
-}
-
-func getPublicIpAltService(srv []string) {
+func getPublicIp(srv []string) []byte {
 	client, req := prepareRequest(srv)
 
 	resp, err := client.Do(req)
@@ -86,15 +63,20 @@ func getPublicIpAltService(srv []string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%s\n", ip)
 
 	defer resp.Body.Close()
+	return ip
+}
+
+func printIp(ip []byte) {
+	fmt.Printf("%s\n", ip)
 	os.Exit(0)
 }
 
 func main() {
 	if len(os.Args) == 1 {
-		getPublicIp()
+		ip := getPublicIp([]string{"https://api.ipify.org"})
+		printIp(ip)
 	}
 	switch os.Args[1] {
 	case "version":
@@ -103,7 +85,8 @@ func main() {
 		if len(os.Args) < 3 {
 			log.Fatal("you did not provide use with enough arguments")
 		}
-		getPublicIpAltService(os.Args[2:])
+		ip := getPublicIp(os.Args[2:])
+		printIp(ip)
 	default:
 		help()
 	}
