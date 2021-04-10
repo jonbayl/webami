@@ -70,7 +70,6 @@ func getPublicIp(srv []string) []byte {
 
 func printIp(ip []byte) {
 	fmt.Printf("%s\n", ip)
-	os.Exit(0)
 }
 
 func main() {

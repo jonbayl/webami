@@ -24,6 +24,7 @@ import (
 
 func Example_help() {
 	help()
+
 	// Output:
 	// webami - A whoami for the internet.
 	// Easily retrieve your public IP address from the command-line. webami utilises Ipify to retrieve your public IP address and return it within the command-line.
@@ -34,6 +35,13 @@ func Example_help() {
 	// version: prints the current version of webami.
 	// use: specify the IP retrieveal service to use. Takes one argument which must be a valid URL, all other arguments are ignored. Example: webami use https://api.ipify.org
 }
+
+func Example_printIp() {
+	printIp([]byte("10.10.10.10"))
+
+	// Output: 10.10.10.10
+}
+
 func TestValidateIp(t *testing.T) {
 	validIp := []byte("10.10.10.10")
 	invalidIp := []byte("this is invalid input")
