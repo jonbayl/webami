@@ -1,8 +1,11 @@
 package main
 
 import (
+	"io"
 	"net/http"
+	"os"
 	"reflect"
+	"regexp"
 	"testing"
 )
 
@@ -82,5 +85,62 @@ func TestGetPublicIp(t *testing.T) {
 	err := validateIp(ip)
 	if err != nil {
 		t.Errorf("getPublicIp returned %s, which is not valid input.", ip)
+	}
+}
+
+func TestMainNoargs(t *testing.T) {
+	os.Args = []string{"webami"}
+
+	rescueStdout := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	main()
+
+	w.Close()
+	out, _ := io.ReadAll(r)
+	os.Stdout = rescueStdout
+
+	match, _ := regexp.Match("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)", out)
+	if match != true {
+		t.Errorf("Expected IP address(x.x.x.x), got: %s", out)
+	}
+
+}
+
+func TestMainVersion(t *testing.T) {
+	os.Args = []string{"webami", "version"}
+	rescueStdout := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	main()
+
+	w.Close()
+	out, _ := io.ReadAll(r)
+	os.Stdout = rescueStdout
+
+	match, _ := regexp.Match("^webami version: v[1-9]\\.[1-9]", out)
+	if match != true {
+		t.Errorf("Expected: webami version: x.x, got: %s", out)
+	}
+}
+
+func TestMainUse(t *testing.T) {
+	os.Args = []string{"webami", "use", "https://api.ipify.org"}
+
+	rescueStdout := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	main()
+
+	w.Close()
+	out, _ := io.ReadAll(r)
+	os.Stdout = rescueStdout
+
+	match, _ := regexp.Match("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)", out)
+	if match != true {
+		t.Errorf("Expected IP address(x.x.x.x), got: %s", out)
 	}
 }
