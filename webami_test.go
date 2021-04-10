@@ -1,28 +1,38 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-	"os"
-	"os/exec"
 	"reflect"
 	"testing"
 )
 
-func TestHelp(t *testing.T) {
-	if os.Getenv("TEST_HELP") == "1" {
-		help()
-		return
-	}
-	cmd := exec.Command(os.Args[0], "-test.run=TestHelp")
-	fmt.Printf("%s", os.Args[0])
-	cmd.Env = append(os.Environ(), "TEST_HELP=1")
-	err := cmd.Run()
+// func TestHelp(t *testing.T) {
+// 	if os.Getenv("TEST_HELP") == "1" {
+// 		help()
+// 		return
+// 	}
+// 	cmd := exec.Command(os.Args[0], "-test.run=TestHelp")
+// 	fmt.Printf("%s", os.Args[0])
+// 	cmd.Env = append(os.Environ(), "TEST_HELP=1")
+// 	err := cmd.Run()
 
-	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
-		t.Errorf("Help returned %v when exit status 0 was expected.", err)
-	}
+// 	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
+// 		t.Errorf("Help returned %v when exit status 0 was expected.", err)
+// 	}
+// 	help()
+// }
+
+func Example_help() {
 	help()
+	// Output:
+	// webami - A whoami for the internet.
+	// Easily retrieve your public IP address from the command-line. webami utilises Ipify to retrieve your public IP address and return it within the command-line.
+	//
+	// Usage: simply run the webami executable to retrieve your public IP address.
+	//
+	// Other arguments:
+	// version: prints the current version of webami.
+	// use: specify the IP retrieveal service to use. Takes one argument which must be a valid URL, all other arguments are ignored. Example: webami use https://api.ipify.org
 }
 func TestValidateIp(t *testing.T) {
 	validIp := []byte("10.10.10.10")
