@@ -70,24 +70,25 @@ func getPublicIp(srv []string) []byte {
 
 func printIp(ip []byte) {
 	fmt.Printf("%s\n", ip)
+	// os.Exit(0)
 }
 
 func main() {
 	if len(os.Args) == 1 {
 		ip := getPublicIp([]string{"https://api.ipify.org"})
 		printIp(ip)
-	}
-	switch os.Args[1] {
-	case "version":
-		fmt.Println("webami version: " + version)
-	case "use":
-		if len(os.Args) < 3 {
-			log.Fatal("you did not provide use with enough arguments")
+	} else {
+		switch os.Args[1] {
+		case "version":
+			fmt.Println("webami version: " + version)
+		case "use":
+			if len(os.Args) < 3 {
+				log.Fatal("you did not provide use with enough arguments")
+			}
+			ip := getPublicIp(os.Args[2:])
+			printIp(ip)
+		default:
+			help()
 		}
-		ip := getPublicIp(os.Args[2:])
-		printIp(ip)
-	default:
-		help()
 	}
-
 }
