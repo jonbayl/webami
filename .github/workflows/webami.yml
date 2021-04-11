@@ -2,7 +2,7 @@ name: Webami Build
 
 on:
   push:
-    branches: [ main, build-improvements ]
+    branches: [ main ]
     paths-ignore: 
       - '*.md'
   pull_request:
@@ -35,6 +35,7 @@ jobs:
       with:
         name: webami 
         path: webami
+        retention-days: 3
   
   build-windows:
     runs-on: windows-latest
@@ -57,3 +58,4 @@ jobs:
       with:
         name: webami.exe 
         path: webami.exe 
+        retention-days: 3 
