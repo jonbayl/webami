@@ -4,13 +4,11 @@ on:
   push:
     branches: [ main ]
     paths-ignore: 
-      - 'README.md'
-      - 'SECURITY.md'
+      - '*.md'
   pull_request:
     branches: [ main ]
     paths-ignore: 
-      - 'README.md'
-      - 'SECURITY.md'
+      - '*.md'
 jobs:
 
   build:
