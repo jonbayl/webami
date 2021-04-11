@@ -4,16 +4,14 @@ on:
   push:
     branches: [ main ]
     paths-ignore: 
-      - 'README.md'
-      - 'SECURITY.md'
+      - '*.md'
   pull_request:
     branches: [ main ]
     paths-ignore: 
-      - 'README.md'
-      - 'SECURITY.md'
+      - '*.md'
 jobs:
 
-  build:
+  build-linux:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -31,3 +29,33 @@ jobs:
     
     - name: Codecov
       run: bash <(curl -s https://codecov.io/bash)
+
+    - name: Upload Binary 
+      uses: actions/upload-artifact@v2 
+      with:
+        name: webami 
+        path: webami
+        retention-days: 3
+  
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2 
+
+    - name: Set up Go 
+      uses: actions/setup-go@v2 
+      with:
+        go-version: 1.16
+      
+    - name: Build 
+      run: go build -v ./... 
+
+    - name: Test 
+      run: go test -race 
+
+    - name: Upload Exe 
+      uses: actions/upload-artifact@v2 
+      with:
+        name: webami.exe 
+        path: webami.exe 
+        retention-days: 3 
