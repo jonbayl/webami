@@ -2,7 +2,7 @@ name: Webami Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, build-improvements ]
     paths-ignore: 
       - '*.md'
   pull_request:
