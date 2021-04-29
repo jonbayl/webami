@@ -26,9 +26,13 @@ jobs:
 
     - name: Test
       run: go test -race -coverprofile=coverage.txt -covermode=atomic
-    
-    - name: Codecov
-      run: bash <(curl -s https://codecov.io/bash)
+      
+    - name: Upload Test Coverage
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-coverage
+        path: coverage.txt
+        retention-days: 3
 
     - name: Upload Binary 
       uses: actions/upload-artifact@v2 
